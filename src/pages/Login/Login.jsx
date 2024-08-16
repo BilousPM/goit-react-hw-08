@@ -12,7 +12,7 @@ const Login = () => {
   };
 
   const handleSubmit = (values, options) => {
-    console.log(values);
+    // console.log(values);
     dispatch(loginThunk(values));
     options.resetForm();
   };
