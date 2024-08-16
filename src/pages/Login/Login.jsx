@@ -1,9 +1,11 @@
 import { Field, Form, Formik } from 'formik';
-import { useDispatch } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link, Navigate } from 'react-router-dom';
 import { loginThunk } from '../../redux/auth/operations';
+import { selectIsLoggedIn } from '../../redux/auth/selectors';
 
 const Login = () => {
+  const isLoggedIn = useSelector(selectIsLoggedIn);
   const dispatch = useDispatch();
 
   const initialvalues = {
@@ -16,6 +18,10 @@ const Login = () => {
     dispatch(loginThunk(values));
     options.resetForm();
   };
+
+  if (isLoggedIn) {
+    return <Navigate to="/" />;
+  }
 
   return (
     <div>
