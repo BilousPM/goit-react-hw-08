@@ -1,5 +1,6 @@
 import { createSlice, isAnyOf } from '@reduxjs/toolkit';
 import { addContact, deleteContact, fetchContacts } from './operations';
+import { logOutThunk } from '../auth/operations';
 
 const initialState = {
   items: [],
@@ -24,40 +25,42 @@ const slice = createSlice({
       .addCase(deleteContact.fulfilled, (state, action) => {
         state.items = state.items.filter(item => item.id !== action.payload);
         state.loading = false;
-      });
-
-    // .addMatcher(
-    //   isAnyOf(
-    //     fetchContacts.pending,
-    //     deleteContact.pending,
-    //     addContact.pending,
-    //   ),
-    //   (state, action) => {
-    //     state.loading = true;
-    //     state.error = null;
-    //   },
-    // )
-    // .addMatcher(
-    //   isAnyOf(
-    //     fetchContacts.rejected,
-    //     deleteContact.rejected,
-    //     addContact.rejected,
-    //   ),
-    //   (state, action) => {
-    //     state.loading = false;
-    //     state.error = action.payload;
-    //   },
-    // )
-    // .addMatcher(
-    //   isAnyOf(
-    //     fetchContacts.fulfilled,
-    //     deleteContact.fulfilled,
-    //     addContact.fulfilled,
-    //   ),
-    //   (state, action) => {
-    //     state.loading = false;
-    //   },
-    // );
+      })
+      .addCase(logOutThunk.fulfilled, () => {
+        return initialState;
+      })
+      .addMatcher(
+        isAnyOf(
+          fetchContacts.pending,
+          deleteContact.pending,
+          addContact.pending,
+        ),
+        state => {
+          state.loading = true;
+          state.error = null;
+        },
+      )
+      .addMatcher(
+        isAnyOf(
+          fetchContacts.rejected,
+          deleteContact.rejected,
+          addContact.rejected,
+        ),
+        (state, action) => {
+          state.loading = false;
+          state.error = action.payload;
+        },
+      )
+      .addMatcher(
+        isAnyOf(
+          fetchContacts.fulfilled,
+          deleteContact.fulfilled,
+          addContact.fulfilled,
+        ),
+        state => {
+          state.loading = false;
+        },
+      );
   },
 });
 

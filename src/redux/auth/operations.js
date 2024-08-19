@@ -36,11 +36,17 @@ export const logOutThunk = createAsyncThunk('logout', async (_, thunkAPI) => {
   }
 });
 
-// export const getMeThunk = createAsyncThunk('getMe', async (_, thunkAPI) => {
-//   try {
-//     const response = await contactsApi.get('/users/current');
-//     return response.data;
-//   } catch (error) {
-//     return thunkAPI.rejectWithValue(error.message);
-//   }
-// });
+export const getUserThunk = createAsyncThunk('getMe', async (_, thunkAPI) => {
+  const savedToken = thunkAPI.getState().auth.token;
+  if (savedToken === null) {
+    return thunkAPI.rejectWithValue('token is not exist');
+  }
+
+  try {
+    setToken(savedToken);
+    const response = await contactsApi.get('/users/current');
+    return response.data;
+  } catch (error) {
+    return thunkAPI.rejectWithValue(error.message);
+  }
+});
