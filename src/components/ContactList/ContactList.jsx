@@ -1,6 +1,5 @@
 import { useEffect } from 'react';
 import { fetchContacts } from '../../redux/contacts/operations';
-
 import { selectFilteredContacts } from '../../redux/filters/selectors';
 
 import Contact from '../Contact/Contact';
