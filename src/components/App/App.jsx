@@ -5,18 +5,21 @@ import Login from '../../pages/Login/Login';
 import Register from '../../pages/Register/Register';
 import Contacts from '../../pages/Contacts/Contacts';
 import NotFound from '../../pages/NotFound/NotFound';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { getUserThunk } from '../../redux/auth/operations';
 import { PrivateRoute } from '../../Routes/PrivateRoute';
 import { PublicRoute } from '../../Routes/PublicRoute';
+import { selectIsRefresh } from '../../redux/auth/selectors';
+import Loader from '../Loader/Loader';
 
 const App = () => {
+  const isRefreshing = useSelector(selectIsRefresh);
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getUserThunk());
   }, [dispatch]);
-  return (
+  return isRefreshing? <Loader/> :(
     <Routes>
       <Route path="/" element={<Layout />}>
         <Route index element={<Home />} />
@@ -46,7 +49,7 @@ const App = () => {
         }
       />
       <Route path="*" element={<NotFound />} />
-    </Routes>
+    </Routes>,
   );
 };
 
