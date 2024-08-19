@@ -1,49 +1,23 @@
-import { useSelector, useDispatch } from 'react-redux';
-import { NavLink } from 'react-router-dom';
-import { selectIsLoggedIn, selectUser } from '../../redux/auth/selectors';
-import { logout } from '../../redux/auth/operations.js';
-import s from './Header.module.css';
+// import { useSelector } from 'react-redux';
+// import { NavLink } from 'react-router-dom';
+// import { selectIsLoggedIn, selectUser } from '../../redux/auth/selectors';
 
-const Header = () => {
-  const user = useSelector(selectUser);
-  const isLoggedIn = useSelector(selectIsLoggedIn);
-  const dispatch = useDispatch();
+// import s from './Header.module.css';
+// import UserMenu from '../UserMenu/UserMenu';
 
-  return (
-    <header className={s.header}>
-      <NavLink className={s.link} to="/">
-        HOME
-      </NavLink>
+// const Header = () => {
+//   const user = useSelector(selectUser);
+//   const isLoggedIn = useSelector(selectIsLoggedIn);
 
-      {isLoggedIn && <h1>{`Welcom ${user.name}`}</h1>}
-      <ul className={s.list}>
-        <li>
-          <NavLink to="/contacts">Contacts</NavLink>
-        </li>
-        {!isLoggedIn && (
-          <>
-            <li>
-              <NavLink to="/login">Login</NavLink>
-            </li>
-            <li>
-              <NavLink to="/register">Register</NavLink>
-            </li>
-          </>
-        )}
-        {isLoggedIn && (
-          <button
-            className={s.button}
-            type="button"
-            onClick={() => {
-              dispatch(logout());
-            }}
-          >
-            Log out
-          </button>
-        )}
-      </ul>
-    </header>
-  );
-};
+//   return (
+//     <header className={s.header}>
+//       <NavLink className={s.link} to="/">
+//         HOME
+//       </NavLink>
+//       {isLoggedIn && <h1>{`Welcome ${user.name}`}</h1>}
+//       <UserMenu />
+//     </header>
+//   );
+// };
 
-export default Header;
+// export default Header;

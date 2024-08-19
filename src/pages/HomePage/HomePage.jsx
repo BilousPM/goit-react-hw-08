@@ -1,4 +1,4 @@
-const Home = () => {
+const HomePage = () => {
   return (
     <>
       <h1>Phone Book APP</h1>
@@ -10,4 +10,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default HomePage;

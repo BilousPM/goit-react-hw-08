@@ -1,23 +1,23 @@
 import { Route, Routes } from 'react-router-dom';
 import Layout from '../Layout/Layout';
-import Home from '../../pages/Home/Home';
-import LoginForm from '../../pages/Login/LoginForm';
-import RegistrationForm from '../../pages/Registration/RegistrationForm';
+import HomePage from '../../pages/HomePage/HomePage';
+import LoginForm from '../../pages/LoginPage/LoginForm';
+import RegistrationForm from '../../pages/RegistrationPage/RegistrationForm';
 import { useDispatch, useSelector } from 'react-redux';
 import { lazy, Suspense, useEffect } from 'react';
-import { getUserThunk } from '../../redux/auth/operations';
+import { refreshUser } from '../../redux/auth/operations';
 import { PrivateRoute } from '../../Routes/PrivateRoute';
 import { PublicRoute } from '../../Routes/PublicRoute';
 import { selectIsRefresh } from '../../redux/auth/selectors';
 import Loader from '../Loader/Loader';
-const Contacts = lazy(() => import('../../pages/Contacts/Contacts'));
-const NotFound = lazy(() => import('../../pages/NotFound/NotFound'));
+const Contacts = lazy(() => import('../../pages/ContactsPage/Contacts'));
+const NotFound = lazy(() => import('../../pages/NotFoundPage/NotFound'));
 
 const App = () => {
   const isRefreshing = useSelector(selectIsRefresh);
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(getUserThunk());
+    dispatch(refreshUser());
   }, [dispatch]);
   return isRefreshing ? (
     <Loader />
@@ -25,33 +25,34 @@ const App = () => {
     <Suspense fallback={<Loader />}>
       <Routes>
         <Route path="/" element={<Layout />}>
-          <Route index element={<Home />} />
+          <Route index element={<HomePage />} />
           <Route
-            path="contacts"
+            path="/contacts"
             element={
               <PrivateRoute>
                 <Contacts />
               </PrivateRoute>
             }
           />
+
+          <Route
+            path="/login"
+            element={
+              <PublicRoute>
+                <LoginForm />
+              </PublicRoute>
+            }
+          />
+          <Route
+            path="/register"
+            element={
+              <PublicRoute>
+                <RegistrationForm />
+              </PublicRoute>
+            }
+          />
+          <Route path="*" element={<NotFound />} />
         </Route>
-        <Route
-          path="/login"
-          element={
-            <PublicRoute>
-              <LoginForm />
-            </PublicRoute>
-          }
-        />
-        <Route
-          path="/register"
-          element={
-            <PublicRoute>
-              <RegistrationForm />
-            </PublicRoute>
-          }
-        />
-        <Route path="*" element={<NotFound />} />
       </Routes>
     </Suspense>
   );
