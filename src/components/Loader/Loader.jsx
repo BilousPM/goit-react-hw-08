@@ -5,7 +5,7 @@ const Loader = () => {
     <div className={s.loader}>
       <MagnifyingGlass
         visible={true}
-        height="2000"
+        height="200"
         width="200"
         ariaLabel="magnifying-glass-loading"
         wrapperStyle={{}}

@@ -1,6 +1,9 @@
 body {
   font-family: sans-serif;
   line-height: 1.5;
+  background-color: rgb(28, 27, 27);
+  color: aliceblue;
+  background-image: url(./photos/photo-contacts.jpeg);
 }
 
 h1,

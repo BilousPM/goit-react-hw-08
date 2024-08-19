@@ -1,7 +1,8 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import { selectIsLoggedIn, selectUser } from '../../redux/auth/selectors';
-import { logOutThunk } from '../../redux/auth/operations';
+import { logout } from '../../redux/auth/operations.js';
+import s from './Header.module.css';
 
 const Header = () => {
   const user = useSelector(selectUser);
@@ -9,13 +10,13 @@ const Header = () => {
   const dispatch = useDispatch();
 
   return (
-    <header>
-      <h2>Auth</h2>
-      <h3>{user.name}</h3>
-      <ul>
-        <li>
-          <NavLink to="/">HOME</NavLink>
-        </li>
+    <header className={s.header}>
+      <NavLink className={s.link} to="/">
+        HOME
+      </NavLink>
+
+      {isLoggedIn && <h1>{`Welcom ${user.name}`}</h1>}
+      <ul className={s.list}>
         <li>
           <NavLink to="/contacts">Contacts</NavLink>
         </li>
@@ -31,12 +32,13 @@ const Header = () => {
         )}
         {isLoggedIn && (
           <button
+            className={s.button}
             type="button"
             onClick={() => {
-              dispatch(logOutThunk());
+              dispatch(logout());
             }}
           >
-            Exit
+            Log out
           </button>
         )}
       </ul>

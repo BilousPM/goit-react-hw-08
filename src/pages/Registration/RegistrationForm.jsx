@@ -1,10 +1,11 @@
 import { Field, Form, Formik } from 'formik';
 import { Link, Navigate } from 'react-router-dom';
-import { registerThunk } from '../../redux/auth/operations';
+import { register } from '../../redux/auth/operations';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectIsLoggedIn } from '../../redux/auth/selectors';
+import s from './RegistrationForm.module.css';
 
-const Register = () => {
+const RegistrationForm = () => {
   const isLoggedIn = useSelector(selectIsLoggedIn);
   const dispatch = useDispatch();
 
@@ -15,7 +16,7 @@ const Register = () => {
   };
 
   const handleSubmit = (values, options) => {
-    dispatch(registerThunk(values));
+    dispatch(register(values));
     options.resetForm();
   };
 
@@ -24,13 +25,22 @@ const Register = () => {
   }
 
   return (
-    <div>
+    <div className={s.formWrapper}>
       <Formik initialValues={initialvalues} onSubmit={handleSubmit}>
-        <Form>
-          <Field name="name" placeholder="Enter your Name" />
-
-          <Field name="email" placeholder="Enter your Email" />
+        <Form className={s.form}>
           <Field
+            className={s.input}
+            name="name"
+            placeholder="Enter your Name"
+          />
+
+          <Field
+            className={s.input}
+            name="email"
+            placeholder="Enter your Email"
+          />
+          <Field
+            className={s.input}
             name="password"
             placeholder="Enter your Password"
             type="password"
@@ -38,7 +48,10 @@ const Register = () => {
           <button type="submit">Register</button>
 
           <p>
-            You already have account? <Link to="/login">Sign In</Link>
+            You already have account?{' '}
+            <Link className={s.a} to="/login">
+              Sign In
+            </Link>
           </p>
         </Form>
       </Formik>
@@ -46,4 +59,4 @@ const Register = () => {
   );
 };
 
-export default Register;
+export default RegistrationForm;

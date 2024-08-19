@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { fetchContacts } from '../../redux/contacts/operations';
-import { selectFilteredContacts } from '../../redux/contacts/selectors';
+
+import { selectFilteredContacts } from '../../redux/filters/selectors';
 
 import Contact from '../Contact/Contact';
 import s from './ContactList.module.css';
@@ -11,8 +12,7 @@ const ContactList = () => {
   const filterName = useSelector(selectFilteredContacts);
   const dispatch = useDispatch();
   useEffect(() => {
-    console.log('hi');
-    // dispatch(fetchContacts());
+    dispatch(fetchContacts());
   }, [dispatch]);
 
   return (

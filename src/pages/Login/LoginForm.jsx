@@ -1,10 +1,11 @@
 import { Field, Form, Formik } from 'formik';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, Navigate } from 'react-router-dom';
-import { loginThunk } from '../../redux/auth/operations';
+import { login } from '../../redux/auth/operations';
 import { selectIsLoggedIn } from '../../redux/auth/selectors';
+import s from './LoginForm.module.css';
 
-const Login = () => {
+const LoginForm = () => {
   const isLoggedIn = useSelector(selectIsLoggedIn);
   const dispatch = useDispatch();
 
@@ -14,8 +15,7 @@ const Login = () => {
   };
 
   const handleSubmit = (values, options) => {
-    // console.log(values);
-    dispatch(loginThunk(values));
+    dispatch(login(values));
     options.resetForm();
   };
 
@@ -24,11 +24,16 @@ const Login = () => {
   }
 
   return (
-    <div>
+    <div className={s.formWrapper}>
       <Formik initialValues={initialvalues} onSubmit={handleSubmit}>
-        <Form>
-          <Field name="email" placeholder="Enter your Email" />
+        <Form className={s.form}>
           <Field
+            className={s.input}
+            name="email"
+            placeholder="Enter your Email"
+          />
+          <Field
+            className={s.input}
             name="password"
             placeholder="Enter your Password"
             type="password"
@@ -36,7 +41,10 @@ const Login = () => {
           <button type="submit">Login</button>
 
           <p>
-            Don't you have an account yet? <Link to="/register">Register</Link>
+            Don't you have an account yet?{' '}
+            <Link className={s.a} to="/register">
+              Register
+            </Link>
           </p>
         </Form>
       </Formik>
@@ -44,4 +52,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default LoginForm;

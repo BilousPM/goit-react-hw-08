@@ -1,8 +1,8 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { clearToken, contactsApi, setToken } from '../../config/contactsApi';
 
-export const registerThunk = createAsyncThunk(
-  'register',
+export const register = createAsyncThunk(
+  'auth/register',
   async (credentiales, thunkAPI) => {
     try {
       const response = await contactsApi.post('/users/signup', credentiales);
@@ -14,8 +14,8 @@ export const registerThunk = createAsyncThunk(
   },
 );
 
-export const loginThunk = createAsyncThunk(
-  'login',
+export const login = createAsyncThunk(
+  'auth/login',
   async (credentiales, thunkAPI) => {
     try {
       const response = await contactsApi.post('/users/login', credentiales);
@@ -27,7 +27,7 @@ export const loginThunk = createAsyncThunk(
   },
 );
 
-export const logOutThunk = createAsyncThunk('logout', async (_, thunkAPI) => {
+export const logout = createAsyncThunk('auth/logout', async (_, thunkAPI) => {
   try {
     await contactsApi.post('/users/logout');
     clearToken();
