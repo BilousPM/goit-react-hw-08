@@ -11,7 +11,8 @@ const ContactList = () => {
   const filterName = useSelector(selectFilteredContacts);
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(fetchContacts());
+    console.log('hi');
+    // dispatch(fetchContacts());
   }, [dispatch]);
 
   return (
