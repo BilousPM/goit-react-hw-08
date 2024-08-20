@@ -1,7 +1,7 @@
 import { Route, Routes } from 'react-router-dom';
 import Layout from '../Layout/Layout';
 import HomePage from '../../pages/HomePage/HomePage';
-import LoginForm from '../../pages/LoginPage/LoginForm';
+import LoginPage from '../../pages/LoginPage/LoginPage';
 import RegistrationForm from '../../pages/RegistrationPage/RegistrationForm';
 import { useDispatch, useSelector } from 'react-redux';
 import { lazy, Suspense, useEffect } from 'react';
@@ -10,6 +10,7 @@ import { PrivateRoute } from '../../Routes/PrivateRoute';
 import { PublicRoute } from '../../Routes/PublicRoute';
 import { selectIsRefresh } from '../../redux/auth/selectors';
 import Loader from '../Loader/Loader';
+
 const Contacts = lazy(() => import('../../pages/ContactsPage/Contacts'));
 const NotFound = lazy(() => import('../../pages/NotFoundPage/NotFound'));
 
@@ -39,7 +40,7 @@ const App = () => {
             path="/login"
             element={
               <PublicRoute>
-                <LoginForm />
+                <LoginPage />
               </PublicRoute>
             }
           />
