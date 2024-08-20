@@ -1,14 +1,14 @@
 import { Route, Routes } from 'react-router-dom';
-import Layout from '../Layout/Layout';
-import HomePage from '../../pages/HomePage/HomePage';
-import LoginPage from '../../pages/LoginPage/LoginPage';
-import RegistrationForm from '../../pages/RegistrationPage/RegistrationForm';
 import { useDispatch, useSelector } from 'react-redux';
 import { lazy, Suspense, useEffect } from 'react';
 import { refreshUser } from '../../redux/auth/operations';
 import { PrivateRoute } from '../../Routes/PrivateRoute';
 import { PublicRoute } from '../../Routes/PublicRoute';
 import { selectIsRefresh } from '../../redux/auth/selectors';
+import Layout from '../Layout/Layout';
+import HomePage from '../../pages/HomePage/HomePage';
+import LoginPage from '../../pages/LoginPage/LoginPage';
+import RegistrationPage from '../../pages/RegistrationPage/RegistrationPage';
 import Loader from '../Loader/Loader';
 
 const Contacts = lazy(() => import('../../pages/ContactsPage/Contacts'));
@@ -48,7 +48,7 @@ const App = () => {
             path="/register"
             element={
               <PublicRoute>
-                <RegistrationForm />
+                <RegistrationPage />
               </PublicRoute>
             }
           />
