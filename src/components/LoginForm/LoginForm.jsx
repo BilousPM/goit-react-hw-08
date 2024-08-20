@@ -5,7 +5,7 @@ import { login } from '../../redux/auth/operations';
 import s from './LoginForm.module.css';
 import { selectIsLoggedIn } from '../../redux/auth/selectors';
 
-const Login = () => {
+const LoginForm = () => {
   const isLoggedIn = useSelector(selectIsLoggedIn);
   const dispatch = useDispatch();
 
@@ -52,4 +52,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default LoginForm;
