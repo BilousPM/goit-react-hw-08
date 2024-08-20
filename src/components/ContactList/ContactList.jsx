@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 const ContactList = () => {
   const filterName = useSelector(selectNameFilter);
+
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(fetchContacts());

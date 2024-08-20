@@ -6,6 +6,7 @@ const SearchBox = () => {
   const dispatch = useDispatch();
 
   const handleChange = e => {
+    e.preventDefault();
     dispatch(changeFilter(e.target.value));
   };
 
@@ -17,6 +18,8 @@ const SearchBox = () => {
           onChange={e => {
             handleChange(e);
           }}
+          placeholder="Enter a search name or number"
+          defaultValue={''}
           type="text"
           name="search"
           className={s.input}
