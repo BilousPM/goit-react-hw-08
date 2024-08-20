@@ -3,13 +3,10 @@ import { FaRegUser, FaPhone } from 'react-icons/fa';
 import s from './Contact.module.css';
 import { useDispatch } from 'react-redux';
 import { deleteContact } from '../../redux/contacts/operations';
+import { editContact } from '../../redux/contacts/slice';
 
 const Contact = ({ contact, id }) => {
   const dispatch = useDispatch();
-
-  const handleDelete = () => {
-    dispatch(deleteContact(id));
-  };
 
   return (
     <div className={s.wrapper}>
@@ -23,8 +20,19 @@ const Contact = ({ contact, id }) => {
           {contact.number}
         </p>
       </div>
-      <button onClick={() => handleDelete()} type="button" className={s.button}>
+      <button
+        onClick={() => dispatch(deleteContact(id))}
+        type="button"
+        className={s.button}
+      >
         Delete
+      </button>
+      <button
+        onClick={() => dispatch(editContact({ ...contact, id }))}
+        type="button"
+        className={s.button}
+      >
+        Edit
       </button>
     </div>
   );
